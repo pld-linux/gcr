@@ -50,7 +50,7 @@ gck is a library for accessing PKCS#11 modules like smart cards.
 Summary:	gcr library
 Summary(pl.UTF-8):	Biblioteka gcr
 Group:		Libraries
-Conflicts:	gnome-keyring-libs < 3.3.0
+Obsoletes:	gnome-keyring-libs < 3.3.0
 
 %description libs
 This package provides gcr library.
@@ -65,7 +65,7 @@ Group:		Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	glib2-devel >= 1:2.26.0
 Requires:	p11-kit-devel >= 0.6
-Conflicts:	gnome-keyring-devel < 3.3.0
+Obsoletes:	gnome-keyring-devel < 3.3.0
 
 %description devel
 Header files for gcr library.
@@ -78,7 +78,7 @@ Summary:	Static gcr library
 Summary(pl.UTF-8):	Statyczna biblioteka gcr
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
-Conflicts:	gnome-keyring-static < 3.3.0
+Obsoletes:	gnome-keyring-static < 3.3.0
 
 %description static
 Static gcr library.
@@ -91,7 +91,7 @@ Summary:	gcr API documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki gcr
 Group:		Documentation
 Requires:	gtk-doc-common
-Conflicts:	gnome-keyring-apidocs < 3.3.0
+Obsoletes:	gnome-keyring-apidocs < 3.3.0
 
 %description apidocs
 API documentation for gcr library.
