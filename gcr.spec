@@ -5,17 +5,17 @@
 #
 Summary:	GObject and GUI library for high level crypto parsing and display
 Name:		gcr
-Version:	3.3.90
+Version:	3.4.0
 Release:	1
 License:	LGPL v2+
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/gcr/3.3/%{name}-%{version}.tar.xz
-# Source0-md5:	06b8d3f7bbb2599c4620b7c1948d06fa
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/gcr/3.4/%{name}-%{version}.tar.xz
+# Source0-md5:	16c49fa1a6d5bbb1f37b94880c1bbedb
 URL:		http://www.gnome.org/
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.11
 BuildRequires:	gettext-devel
-BuildRequires:	glib2-devel >= 1:2.26.0
+BuildRequires:	glib2-devel >= 1:2.30.0
 BuildRequires:	gnupg
 BuildRequires:	gobject-introspection-devel >= 1.30.0
 BuildRequires:	gtk+3-devel >= 3.0.0
@@ -63,7 +63,7 @@ Summary:	Header files for gcr library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki gcr
 Group:		Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.26.0
+Requires:	glib2-devel >= 1:2.30.0
 Requires:	p11-kit-devel >= 0.6
 Obsoletes:	gnome-keyring-devel < 3.3.0
 
@@ -112,6 +112,8 @@ Dokumentacja API biblioteki gcr.
 %configure \
 	%{__enable_disable apidocs gtk-doc} \
 	%{__enable_disable static_libs static} \
+	--disable-update-mime \
+	--disable-update-icon-cache \
 	--disable-silent-rules \
 	--with-html-dir=%{_gtkdocdir}
 %{__make}
