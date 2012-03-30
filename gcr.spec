@@ -4,6 +4,7 @@
 %bcond_without	static_libs	# don't build static libraries
 #
 Summary:	GObject and GUI library for high level crypto parsing and display
+Summary(pl.UTF-8):	Biblioteka GObject i GUI do wysokopoziomowej analizy i wyświetlania danych kryptograficznych
 Name:		gcr
 Version:	3.4.0
 Release:	1
@@ -30,7 +31,7 @@ BuildRequires:	rpmbuild(macros) >= 1.592
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 Requires:	%{name}-libs = %{version}-%{release}
-Requires(post,postun):	glib2 >= 1:2.26.0
+Requires(post,postun):	glib2 >= 1:2.30.0
 Requires(post,postun):	gtk-update-icon-cache
 Requires(post,postun):	shared-mime-info
 Requires(post,postun):	desktop-file-utils
@@ -46,21 +47,32 @@ desktop.
 
 gck is a library for accessing PKCS#11 modules like smart cards.
 
+%description -l pl.UTF-8
+gcr to biblioteka do wyświetlania certyfikatów oraz kryptograficznego
+interfejsu użytkownika, pozwalającego na dostęp do kluczy. Zapewnia
+tekże przeglądarkę plików kryptograficznych dla środowiska GNOME.
+
+gck to biblioteka dostepu do modułów PKCS#11, takich jak karty
+procesorowe.
+
 %package libs
-Summary:	gcr library
-Summary(pl.UTF-8):	Biblioteka gcr
+Summary:	gcr and gck libraries
+Summary(pl.UTF-8):	Biblioteki gcr i gck
 Group:		Libraries
+Requires:	glib2 >= 1:2.30.0
+Requires:	libgcrypt >= 1.2.2
+Requires:	p11-kit >= 0.6
 Obsoletes:	gnome-keyring-libs < 3.3.0
 
 %description libs
-This package provides gcr library.
+This package provides gcr and gck libraries.
 
 %description libs -l pl.UTF-8
-Ten pakiet dostarcza bibliotekę gcr.
+Ten pakiet dostarcza biblioteki gcr i gck.
 
 %package devel
-Summary:	Header files for gcr library
-Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki gcr
+Summary:	Header files for gcr and gck libraries
+Summary(pl.UTF-8):	Pliki nagłówkowe bibliotek gcr i gck
 Group:		Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	glib2-devel >= 1:2.30.0
@@ -68,36 +80,36 @@ Requires:	p11-kit-devel >= 0.6
 Obsoletes:	gnome-keyring-devel < 3.3.0
 
 %description devel
-Header files for gcr library.
+Header files for gcr and gck libraries.
 
 %description devel -l pl.UTF-8
-Pliki nagłówkowe biblioteki gcr.
+Pliki nagłówkowe bibliotek gcr i gck.
 
 %package static
-Summary:	Static gcr library
-Summary(pl.UTF-8):	Statyczna biblioteka gcr
+Summary:	Static gcr and gck libraries
+Summary(pl.UTF-8):	Statyczne biblioteki gcr i gck
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Obsoletes:	gnome-keyring-static < 3.3.0
 
 %description static
-Static gcr library.
+Static gcr and gck libraries.
 
 %description static -l pl.UTF-8
-Statyczna biblioteka gcr.
+Statyczne biblioteki gcr i gck.
 
 %package apidocs
-Summary:	gcr API documentation
-Summary(pl.UTF-8):	Dokumentacja API biblioteki gcr
+Summary:	gcr and gck API documentation
+Summary(pl.UTF-8):	Dokumentacja API bibliotek gcr i gck
 Group:		Documentation
 Requires:	gtk-doc-common
 Obsoletes:	gnome-keyring-apidocs < 3.3.0
 
 %description apidocs
-API documentation for gcr library.
+API and gck documentation for gcr library.
 
 %description apidocs -l pl.UTF-8
-Dokumentacja API biblioteki gcr.
+Dokumentacja API bibliotek gcr i gck.
 
 %prep
 %setup -q
@@ -144,7 +156,7 @@ rm -rf $RPM_BUILD_ROOT
 %update_mime_database
 %update_desktop_database_postun
 
-%post libs -p /sbin/ldconfig
+%post	libs -p /sbin/ldconfig
 %postun	libs -p /sbin/ldconfig
 
 %files -f %{name}.lang
