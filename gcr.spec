@@ -6,17 +6,17 @@
 Summary:	GObject and GUI library for high level crypto parsing and display
 Summary(pl.UTF-8):	Biblioteka GObject i GUI do wysokopoziomowej analizy i wyświetlania danych kryptograficznych
 Name:		gcr
-Version:	3.4.1
+Version:	3.5.90
 Release:	1
 License:	LGPL v2+
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/gcr/3.4/%{name}-%{version}.tar.xz
-# Source0-md5:	52dd83d8f64654147e720cbd186ee357
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/gcr/3.5/%{name}-%{version}.tar.xz
+# Source0-md5:	513ac4527e7df983569f4a99491c4bea
 URL:		http://www.gnome.org/
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.11
 BuildRequires:	gettext-devel
-BuildRequires:	glib2-devel >= 1:2.30.0
+BuildRequires:	glib2-devel >= 1:2.32.0
 BuildRequires:	gnupg
 BuildRequires:	gobject-introspection-devel >= 1.30.0
 BuildRequires:	gtk+3-devel >= 3.0.0
@@ -59,7 +59,7 @@ procesorowe.
 Summary:	gcr and gck libraries
 Summary(pl.UTF-8):	Biblioteki gcr i gck
 Group:		Libraries
-Requires:	glib2 >= 1:2.30.0
+Requires:	glib2 >= 1:2.32.0
 Requires:	libgcrypt >= 1.2.2
 Requires:	p11-kit >= 0.6
 Obsoletes:	gnome-keyring-libs < 3.3.0
@@ -75,7 +75,7 @@ Summary:	Header files for gcr and gck libraries
 Summary(pl.UTF-8):	Pliki nagłówkowe bibliotek gcr i gck
 Group:		Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.30.0
+Requires:	glib2-devel >= 1:2.32.0
 Requires:	p11-kit-devel >= 0.6
 Obsoletes:	gnome-keyring-devel < 3.3.0
 
