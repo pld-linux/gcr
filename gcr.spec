@@ -31,7 +31,7 @@ BuildRequires:	rpmbuild(macros) >= 1.592
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 Requires:	%{name}-libs = %{version}-%{release}
-Requires(post,postun):	glib2 >= 1:2.30.0
+Requires(post,postun):	glib2 >= 1:2.32.0
 Requires(post,postun):	gtk-update-icon-cache
 Requires(post,postun):	shared-mime-info
 Requires(post,postun):	desktop-file-utils
