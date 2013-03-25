@@ -1,0 +1,12 @@
+diff -uNr gcr-3.8.0.old/ui/gcr-certificate-exporter.c gcr-3.8.0/ui/gcr-certificate-exporter.c
+--- gcr-3.8.0.old/ui/gcr-certificate-exporter.c	2013-03-25 11:18:03.000000000 +0100
++++ gcr-3.8.0/ui/gcr-certificate-exporter.c	2013-03-25 14:56:52.352682331 +0100
+@@ -227,7 +227,7 @@
+ 		                       _("Do you want to replace it with a new file?"));
+ 		dialog = gtk_message_dialog_new_with_markup (GTK_WINDOW (self->pv->chooser_dialog),
+ 		     GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_QUESTION,
+-		     GTK_BUTTONS_NONE, msg);
++		     GTK_BUTTONS_NONE, "%s", msg);
+ 		gtk_dialog_add_buttons (GTK_DIALOG (dialog),
+ 		                        GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+ 		                        _("_Replace"), GTK_RESPONSE_ACCEPT, NULL);

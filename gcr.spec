@@ -6,19 +6,20 @@
 Summary:	GObject and GUI library for high level crypto parsing and display
 Summary(pl.UTF-8):	Biblioteka GObject i GUI do wysokopoziomowej analizy i wyświetlania danych kryptograficznych
 Name:		gcr
-Version:	3.6.2
+Version:	3.8.0
 Release:	1
 License:	LGPL v2+
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/gcr/3.6/%{name}-%{version}.tar.xz
-# Source0-md5:	b31d8b95c77333cd49e6eaa5abd93e50
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/gcr/3.8/%{name}-%{version}.tar.xz
+# Source0-md5:	20718f7ec668aeddd89707c1e7e65432
+Patch0:		format-security-fix.patch
 URL:		http://www.gnome.org/
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.11
 BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel >= 1:2.32.0
 BuildRequires:	gnupg
-BuildRequires:	gobject-introspection-devel >= 1.30.0
+BuildRequires:	gobject-introspection-devel >= 1.34.0
 BuildRequires:	gtk+3-devel >= 3.0.0
 BuildRequires:	gtk-doc >= 1.9
 BuildRequires:	intltool >= 0.35.0
@@ -113,6 +114,7 @@ Dokumentacja API bibliotek gcr i gck.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__intltoolize}
@@ -136,7 +138,6 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/libmock-test-module.*
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
 
 %find_lang %{name}
@@ -183,28 +184,34 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %ghost %{_libdir}/libgcr-3.so.1
 %attr(755,root,root) %{_libdir}/libgcr-base-3.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libgcr-base-3.so.1
+%attr(755,root,root) %{_libdir}/libgcr-ui-3.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgcr-ui-3.so.1
 %{_libdir}/girepository-1.0/Gck-1.typelib
 %{_libdir}/girepository-1.0/Gcr-3.typelib
+%{_libdir}/girepository-1.0/GcrUi-3.typelib
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libgck-1.so
 %attr(755,root,root) %{_libdir}/libgcr-3.so
 %attr(755,root,root) %{_libdir}/libgcr-base-3.so
+%attr(755,root,root) %{_libdir}/libgcr-ui-3.so
 %{_datadir}/gir-1.0/Gck-1.gir
 %{_datadir}/gir-1.0/Gcr-3.gir
+%{_datadir}/gir-1.0/GcrUi-3.gir
 %{_includedir}/gck-1
 %{_includedir}/gcr-3
 %{_pkgconfigdir}/gck-1.pc
 %{_pkgconfigdir}/gcr-3.pc
 %{_pkgconfigdir}/gcr-base-3.pc
+%{_pkgconfigdir}/gcr-ui-3.pc
 
 %if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libgck-1.a
-%{_libdir}/libgcr-3.a
 %{_libdir}/libgcr-base-3.a
+%{_libdir}/libgcr-ui-3.a
 %endif
 
 %if %{with apidocs}
