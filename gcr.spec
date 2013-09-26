@@ -1,18 +1,18 @@
 #
 # Conditional build:
 %bcond_without	apidocs		# do not build and package API docs
+%bcond_without	vala		# do not build Vala API
 %bcond_without	static_libs	# don't build static libraries
 #
 Summary:	GObject and GUI library for high level crypto parsing and display
 Summary(pl.UTF-8):	Biblioteka GObject i GUI do wysokopoziomowej analizy i wyświetlania danych kryptograficznych
 Name:		gcr
-Version:	3.8.2
+Version:	3.10.0
 Release:	1
 License:	LGPL v2+
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/gcr/3.8/%{name}-%{version}.tar.xz
-# Source0-md5:	f5e66afcab19897a0de0590735329fb1
-Patch0:		format-security-fix.patch
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/gcr/3.10/%{name}-%{version}.tar.xz
+# Source0-md5:	525962cc88e21a50040abff6bb92cd11
 URL:		http://www.gnome.org/
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.11
@@ -26,10 +26,11 @@ BuildRequires:	intltool >= 0.35.0
 BuildRequires:	libgcrypt-devel >= 1.2.2
 BuildRequires:	libtasn1-devel
 BuildRequires:	libtool
-BuildRequires:	p11-kit-devel >= 0.6
+BuildRequires:	p11-kit-devel >= 0.19.0
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.592
 BuildRequires:	tar >= 1:1.22
+%{?with_vala:BuildRequires:	vala >= 2:0.20.0}
 BuildRequires:	xz
 Requires:	%{name}-libs = %{version}-%{release}
 Requires(post,postun):	glib2 >= 1:2.32.0
@@ -62,7 +63,7 @@ Summary(pl.UTF-8):	Biblioteki gcr i gck
 Group:		Libraries
 Requires:	glib2 >= 1:2.32.0
 Requires:	libgcrypt >= 1.2.2
-Requires:	p11-kit >= 0.6
+Requires:	p11-kit >= 0.19.0
 Obsoletes:	gnome-keyring-libs < 3.3.0
 
 %description libs
@@ -77,7 +78,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe bibliotek gcr i gck
 Group:		Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	glib2-devel >= 1:2.32.0
-Requires:	p11-kit-devel >= 0.6
+Requires:	p11-kit-devel >= 0.19.0
 Obsoletes:	gnome-keyring-devel < 3.3.0
 
 %description devel
@@ -112,9 +113,21 @@ API and gck documentation for gcr library.
 %description apidocs -l pl.UTF-8
 Dokumentacja API bibliotek gcr i gck.
 
+%package -n vala-gcr
+Summary:	gcr and gck API for Vala language
+Summary(pl.UTF-8):	API gcr i gck dla języka Vala
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+Requires:	vala >= 2:0.20.0
+
+%description -n vala-gcr
+gcr and gck API for Vala language.
+
+%description -n vala-gcr -l pl.UTF-8
+API gcr i gck dla języka Vala.
+
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %{__intltoolize}
@@ -125,6 +138,7 @@ Dokumentacja API bibliotek gcr i gck.
 %{__automake}
 %configure \
 	%{__enable_disable apidocs gtk-doc} \
+	%{__enable_disable vala vala} \
 	%{__enable_disable static_libs static} \
 	--disable-update-mime \
 	--disable-update-icon-cache \
@@ -219,4 +233,15 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_gtkdocdir}/gck
 %{_gtkdocdir}/gcr-3
+%endif
+
+%if %{with vala}
+%files -n vala-gcr
+%defattr(644,root,root,755)
+%{_datadir}/vala/vapi/gck-1.deps
+%{_datadir}/vala/vapi/gck-1.vapi
+%{_datadir}/vala/vapi/gcr-3.deps
+%{_datadir}/vala/vapi/gcr-3.vapi
+%{_datadir}/vala/vapi/gcr-ui-3.deps
+%{_datadir}/vala/vapi/gcr-ui-3.vapi
 %endif
