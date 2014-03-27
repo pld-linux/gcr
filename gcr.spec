@@ -7,12 +7,12 @@
 Summary:	GObject and GUI library for high level crypto parsing and display
 Summary(pl.UTF-8):	Biblioteka GObject i GUI do wysokopoziomowej analizy i wyświetlania danych kryptograficznych
 Name:		gcr
-Version:	3.10.1
-Release:	2
+Version:	3.12.0
+Release:	1
 License:	LGPL v2+
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/gcr/3.10/%{name}-%{version}.tar.xz
-# Source0-md5:	68c0b5d7202ac598942616d2e3a1b089
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/gcr/3.12/%{name}-%{version}.tar.xz
+# Source0-md5:	e3f729d63b9b53ef99b5c19958bfb6c8
 URL:		http://www.gnome.org/
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.11
@@ -244,4 +244,5 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/vala/vapi/gcr-3.vapi
 %{_datadir}/vala/vapi/gcr-ui-3.deps
 %{_datadir}/vala/vapi/gcr-ui-3.vapi
+%{_datadir}/vala/vapi/pkcs11.vapi
 %endif
