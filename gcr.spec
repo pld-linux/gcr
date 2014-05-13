@@ -7,12 +7,12 @@
 Summary:	GObject and GUI library for high level crypto parsing and display
 Summary(pl.UTF-8):	Biblioteka GObject i GUI do wysokopoziomowej analizy i wyświetlania danych kryptograficznych
 Name:		gcr
-Version:	3.12.0
+Version:	3.12.2
 Release:	1
 License:	LGPL v2+
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/gcr/3.12/%{name}-%{version}.tar.xz
-# Source0-md5:	e3f729d63b9b53ef99b5c19958bfb6c8
+# Source0-md5:	8d4564abbbd6c4aa03a68a016c692d96
 URL:		http://www.gnome.org/
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.11
