@@ -7,23 +7,23 @@
 Summary:	GObject and GUI library for high level crypto parsing and display
 Summary(pl.UTF-8):	Biblioteka GObject i GUI do wysokopoziomowej analizy i wyświetlania danych kryptograficznych
 Name:		gcr
-Version:	3.12.2
+Version:	3.14.0
 Release:	1
 License:	LGPL v2+
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/gcr/3.12/%{name}-%{version}.tar.xz
-# Source0-md5:	8d4564abbbd6c4aa03a68a016c692d96
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/gcr/3.14/%{name}-%{version}.tar.xz
+# Source0-md5:	f2a620c5f6c0cd570b4e3bed287ed302
 URL:		http://www.gnome.org/
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.11
 BuildRequires:	gettext-devel
-BuildRequires:	glib2-devel >= 1:2.32.0
+BuildRequires:	glib2-devel >= 1:2.38.0
 BuildRequires:	gnupg
 BuildRequires:	gobject-introspection-devel >= 1.34.0
 BuildRequires:	gtk+3-devel >= 3.0.0
 BuildRequires:	gtk-doc >= 1.9
 BuildRequires:	intltool >= 0.35.0
-BuildRequires:	libgcrypt-devel >= 1.2.2
+BuildRequires:	libgcrypt-devel >= 1.4.5
 BuildRequires:	libtasn1-devel
 BuildRequires:	libtool
 BuildRequires:	p11-kit-devel >= 0.19.0
@@ -33,7 +33,7 @@ BuildRequires:	tar >= 1:1.22
 %{?with_vala:BuildRequires:	vala >= 2:0.20.0}
 BuildRequires:	xz
 Requires:	%{name}-libs = %{version}-%{release}
-Requires(post,postun):	glib2 >= 1:2.32.0
+Requires(post,postun):	glib2 >= 1:2.38.0
 Requires(post,postun):	gtk-update-icon-cache
 Requires(post,postun):	shared-mime-info
 Requires(post,postun):	desktop-file-utils
@@ -61,8 +61,8 @@ procesorowe.
 Summary:	gcr and gck libraries
 Summary(pl.UTF-8):	Biblioteki gcr i gck
 Group:		Libraries
-Requires:	glib2 >= 1:2.32.0
-Requires:	libgcrypt >= 1.2.2
+Requires:	glib2 >= 1:2.38.0
+Requires:	libgcrypt >= 1.4.5
 Requires:	p11-kit >= 0.19.0
 Obsoletes:	gnome-keyring-libs < 3.3.0
 
@@ -77,7 +77,7 @@ Summary:	Header files for gcr and gck libraries
 Summary(pl.UTF-8):	Pliki nagłówkowe bibliotek gcr i gck
 Group:		Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.32.0
+Requires:	glib2-devel >= 1:2.38.0
 Requires:	p11-kit-devel >= 0.19.0
 Obsoletes:	gnome-keyring-devel < 3.3.0
 
