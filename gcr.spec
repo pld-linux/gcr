@@ -16,7 +16,7 @@ Source0:	http://ftp.gnome.org/pub/GNOME/sources/gcr/3.14/%{name}-%{version}.tar.
 URL:		http://www.gnome.org/
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.11
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	glib2-devel >= 1:2.38.0
 BuildRequires:	gnupg
 BuildRequires:	gobject-introspection-devel >= 1.34.0
