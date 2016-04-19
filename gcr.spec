@@ -26,6 +26,7 @@ BuildRequires:	intltool >= 0.35.0
 BuildRequires:	libgcrypt-devel >= 1.4.5
 BuildRequires:	libtasn1-devel
 BuildRequires:	libtool
+BuildRequires:	libxslt-progs
 BuildRequires:	p11-kit-devel >= 0.19.0
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.592
