@@ -8,7 +8,7 @@ Summary:	GObject and GUI library for high level crypto parsing and display
 Summary(pl.UTF-8):	Biblioteka GObject i GUI do wysokopoziomowej analizy i wyświetlania danych kryptograficznych
 Name:		gcr
 Version:	3.20.0
-Release:	2
+Release:	3
 License:	LGPL v2+
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/gcr/3.20/%{name}-%{version}.tar.xz
@@ -175,6 +175,9 @@ Summary(pl.UTF-8):	Dokumentacja API bibliotek gcr i gck
 Group:		Documentation
 Requires:	gtk-doc-common
 Obsoletes:	gnome-keyring-apidocs < 3.3.0
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
 
 %description apidocs
 API and gck documentation for gcr library.
