@@ -7,12 +7,12 @@
 Summary:	GObject and GUI library for high level crypto parsing and display
 Summary(pl.UTF-8):	Biblioteka GObject i GUI do wysokopoziomowej analizy i wyświetlania danych kryptograficznych
 Name:		gcr
-Version:	3.20.0
-Release:	3
+Version:	3.28.0
+Release:	1
 License:	LGPL v2+
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/gcr/3.20/%{name}-%{version}.tar.xz
-# Source0-md5:	4314bf89eac293dd0a9d806593ff1b35
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/gcr/3.28/%{name}-%{version}.tar.xz
+# Source0-md5:	5321319307dad34dca2fd52e7c9c01ab
 URL:		http://www.gnome.org/
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.11
@@ -241,13 +241,13 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS ChangeLog HACKING NEWS README
 %attr(755,root,root) %{_bindir}/gcr-viewer
 %attr(755,root,root) %{_libexecdir}/gcr-prompter
+%attr(755,root,root) %{_libexecdir}/gcr-ssh-askpass
 %{_desktopdir}/gcr-prompter.desktop
 %{_desktopdir}/gcr-viewer.desktop
 %{_datadir}/GConf/gsettings/org.gnome.crypto.pgp.convert
 %{_datadir}/GConf/gsettings/org.gnome.crypto.pgp_keyservers.convert
 %{_datadir}/dbus-1/services/org.gnome.keyring.PrivatePrompter.service
 %{_datadir}/dbus-1/services/org.gnome.keyring.SystemPrompter.service
-%{_datadir}/gcr-3
 %{_datadir}/glib-2.0/schemas/org.gnome.crypto.pgp.gschema.xml
 %{_datadir}/mime/packages/gcr-crypto-types.xml
 %{_iconsdir}/hicolor/*x*/apps/gcr-*.png
