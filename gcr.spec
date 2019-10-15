@@ -7,22 +7,21 @@
 Summary:	GObject and GUI library for high level crypto parsing and display
 Summary(pl.UTF-8):	Biblioteka GObject i GUI do wysokopoziomowej analizy i wyświetlania danych kryptograficznych
 Name:		gcr
-Version:	3.28.1
+Version:	3.34.0
 Release:	1
 License:	LGPL v2+
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/gcr/3.28/%{name}-%{version}.tar.xz
-# Source0-md5:	afd88cacfd54c1ac5b3e0eb35e3aa674
-URL:		http://www.gnome.org/
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/gcr/3.34/%{name}-%{version}.tar.xz
+# Source0-md5:	4af28919fb1dd36d93603e8230283b6f
+URL:		https://gitlab.gnome.org/GNOME/gcr
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.11
-BuildRequires:	gettext-tools
+BuildRequires:	gettext-tools >= 0.19.8
 BuildRequires:	glib2-devel >= 1:2.38.0
 BuildRequires:	gnupg
 BuildRequires:	gobject-introspection-devel >= 1.34.0
 BuildRequires:	gtk+3-devel >= 3.12.0
 BuildRequires:	gtk-doc >= 1.9
-BuildRequires:	intltool >= 0.35.0
 BuildRequires:	libgcrypt-devel >= 1.4.5
 BuildRequires:	libtasn1-devel
 BuildRequires:	libtool
@@ -189,7 +188,6 @@ Dokumentacja API bibliotek gcr i gck.
 %setup -q
 
 %build
-%{__intltoolize}
 %{__libtoolize}
 %{__aclocal} -I build/m4
 %{__autoconf}
