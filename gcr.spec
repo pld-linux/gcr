@@ -1,38 +1,35 @@
 #
 # Conditional build:
 %bcond_without	apidocs		# do not build and package API docs
-%bcond_without	vala		# do not build Vala API
-%bcond_without	static_libs	# don't build static libraries
 
 Summary:	GObject and GUI library for high level crypto parsing and display
 Summary(pl.UTF-8):	Biblioteka GObject i GUI do wysokopoziomowej analizy i wyświetlania danych kryptograficznych
 Name:		gcr
-Version:	3.34.0
+Version:	3.36.0
 Release:	1
 License:	LGPL v2+
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/gcr/3.34/%{name}-%{version}.tar.xz
-# Source0-md5:	4af28919fb1dd36d93603e8230283b6f
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/gcr/3.36/%{name}-%{version}.tar.xz
+# Source0-md5:	adc65563b6b458507b9a578a8b68fb61
 URL:		https://gitlab.gnome.org/GNOME/gcr
-BuildRequires:	autoconf >= 2.63
-BuildRequires:	automake >= 1:1.11
 BuildRequires:	gettext-tools >= 0.19.8
-BuildRequires:	glib2-devel >= 1:2.38.0
+BuildRequires:	glib2-devel >= 1:2.44.0
 BuildRequires:	gnupg
 BuildRequires:	gobject-introspection-devel >= 1.34.0
 BuildRequires:	gtk+3-devel >= 3.12.0
 BuildRequires:	gtk-doc >= 1.9
 BuildRequires:	libgcrypt-devel >= 1.4.5
 BuildRequires:	libtasn1-devel
-BuildRequires:	libtool
 BuildRequires:	libxslt-progs
+BuildRequires:	meson >= 0.49
+BuildRequires:	ninja
 BuildRequires:	p11-kit-devel >= 0.19.0
 BuildRequires:	pkgconfig
-BuildRequires:	rpmbuild(macros) >= 1.592
+BuildRequires:	rpmbuild(macros) >= 1.736
 BuildRequires:	tar >= 1:1.22
-%{?with_vala:BuildRequires:	vala >= 2:0.20.0}
+BuildRequires:	vala >= 2:0.20.0
 BuildRequires:	xz
-Requires(post,postun):	glib2 >= 1:2.38.0
+Requires(post,postun):	glib2 >= 1:2.44.0
 Requires(post,postun):	gtk-update-icon-cache
 Requires(post,postun):	shared-mime-info
 Requires(post,postun):	desktop-file-utils
@@ -61,9 +58,11 @@ procesorowe.
 Summary:	gcr and gck libraries
 Summary(pl.UTF-8):	Biblioteki gcr i gck
 Group:		Libraries
-Requires:	glib2 >= 1:2.38.0
+Requires:	glib2 >= 1:2.44.0
 Requires:	libgcrypt >= 1.4.5
 Requires:	p11-kit >= 0.19.0
+Obsoletes:	gcr-static < 3.36.0
+Obsoletes:	gcr-ui-static < 3.36.0
 Obsoletes:	gnome-keyring-libs < 3.3.0
 
 %description libs
@@ -77,7 +76,7 @@ Summary:	Header files for gcr and gck libraries
 Summary(pl.UTF-8):	Pliki nagłówkowe bibliotek gcr i gck
 Group:		Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.38.0
+Requires:	glib2-devel >= 1:2.44.0
 Requires:	p11-kit-devel >= 0.19.0
 Obsoletes:	gnome-keyring-devel < 3.3.0
 
@@ -86,19 +85,6 @@ Header files for gcr and gck libraries.
 
 %description devel -l pl.UTF-8
 Pliki nagłówkowe bibliotek gcr i gck.
-
-%package static
-Summary:	Static gcr and gck libraries
-Summary(pl.UTF-8):	Statyczne biblioteki gcr i gck
-Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
-Obsoletes:	gnome-keyring-static < 3.3.0
-
-%description static
-Static gcr and gck libraries.
-
-%description static -l pl.UTF-8
-Statyczne biblioteki gcr i gck.
 
 %package -n vala-gcr
 Summary:	gcr and gck API for Vala language
@@ -143,18 +129,6 @@ Header files for gcr-ui library.
 %description ui-devel -l pl.UTF-8
 Pliki nagłówkowe biblioteki gcr-ui.
 
-%package ui-static
-Summary:	Static gcr-ui library
-Summary(pl.UTF-8):	Statyczna biblioteka gcr-ui
-Group:		X11/Development/Libraries
-Requires:	%{name}-ui-devel = %{version}-%{release}
-
-%description ui-static
-Static gcr-ui library.
-
-%description ui-static -l pl.UTF-8
-Statyczna biblioteka gcr-ui.
-
 %package -n vala-gcr-ui
 Summary:	gcr-ui API for Vala language
 Summary(pl.UTF-8):	API gcr-ui dla języka Vala
@@ -188,28 +162,15 @@ Dokumentacja API bibliotek gcr i gck.
 %setup -q
 
 %build
-%{__libtoolize}
-%{__aclocal} -I build/m4
-%{__autoconf}
-%{__autoheader}
-%{__automake}
-%configure \
-	%{__enable_disable apidocs gtk-doc} \
-	%{__enable_disable vala vala} \
-	%{__enable_disable static_libs static} \
-	--disable-update-mime \
-	--disable-update-icon-cache \
-	--disable-silent-rules \
-	--with-html-dir=%{_gtkdocdir}
-%{__make}
+%meson build \
+	-Dgtk-doc=%{__true_false apidocs}
+
+%ninja_build -C build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
-
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
+%ninja_install -C build
 
 %find_lang %{name}
 
@@ -254,8 +215,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libgck-1.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libgck-1.so.0
-%attr(755,root,root) %{_libdir}/libgcr-3.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgcr-3.so.1
 %attr(755,root,root) %{_libdir}/libgcr-base-3.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libgcr-base-3.so.1
 %{_libdir}/girepository-1.0/Gck-1.typelib
@@ -264,7 +223,6 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libgck-1.so
-%attr(755,root,root) %{_libdir}/libgcr-3.so
 %attr(755,root,root) %{_libdir}/libgcr-base-3.so
 %{_datadir}/gir-1.0/Gck-1.gir
 %{_datadir}/gir-1.0/Gcr-3.gir
@@ -275,14 +233,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_pkgconfigdir}/gck-1.pc
 %{_pkgconfigdir}/gcr-base-3.pc
 
-%if %{with static_libs}
-%files static
-%defattr(644,root,root,755)
-%{_libdir}/libgck-1.a
-%{_libdir}/libgcr-base-3.a
-%endif
-
-%if %{with vala}
 %files -n vala-gcr
 %defattr(644,root,root,755)
 %{_datadir}/vala/vapi/gck-1.deps
@@ -290,7 +240,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/vala/vapi/gcr-3.deps
 %{_datadir}/vala/vapi/gcr-3.vapi
 %{_datadir}/vala/vapi/pkcs11.vapi
-%endif
 
 %files ui
 %defattr(644,root,root,755)
@@ -307,22 +256,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_pkgconfigdir}/gcr-3.pc
 %{_pkgconfigdir}/gcr-ui-3.pc
 
-%if %{with static_libs}
-%files ui-static
-%defattr(644,root,root,755)
-%{_libdir}/libgcr-ui-3.a
-%endif
-
-%if %{with vala}
 %files -n vala-gcr-ui
 %defattr(644,root,root,755)
 %{_datadir}/vala/vapi/gcr-ui-3.deps
 %{_datadir}/vala/vapi/gcr-ui-3.vapi
-%endif
 
 %if %{with apidocs}
 %files apidocs
 %defattr(644,root,root,755)
 %{_gtkdocdir}/gck
-%{_gtkdocdir}/gcr-3
+%{_gtkdocdir}/gcr
 %endif
