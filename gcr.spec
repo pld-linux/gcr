@@ -61,8 +61,6 @@ Group:		Libraries
 Requires:	glib2 >= 1:2.44.0
 Requires:	libgcrypt >= 1.4.5
 Requires:	p11-kit >= 0.19.0
-Obsoletes:	gcr-static < 3.36.0
-Obsoletes:	gcr-ui-static < 3.36.0
 Obsoletes:	gnome-keyring-libs < 3.3.0
 
 %description libs
@@ -78,6 +76,8 @@ Group:		Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	glib2-devel >= 1:2.44.0
 Requires:	p11-kit-devel >= 0.19.0
+Obsoletes:	gcr-static < 3.36.0
+Obsoletes:	gcr-ui-static < 3.36.0
 Obsoletes:	gnome-keyring-devel < 3.3.0
 
 %description devel
