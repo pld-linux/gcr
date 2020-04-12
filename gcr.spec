@@ -14,7 +14,7 @@ Source0:	http://ftp.gnome.org/pub/GNOME/sources/gcr/3.36/%{name}-%{version}.tar.
 URL:		https://gitlab.gnome.org/GNOME/gcr
 BuildRequires:	gettext-tools >= 0.19.8
 BuildRequires:	glib2-devel >= 1:2.44.0
-BuildRequires:	gnupg
+BuildRequires:	gnupg2 >= 2.0
 BuildRequires:	gobject-introspection-devel >= 1.34.0
 BuildRequires:	gtk+3-devel >= 3.12.0
 BuildRequires:	gtk-doc >= 1.9
@@ -34,7 +34,7 @@ Requires(post,postun):	gtk-update-icon-cache
 Requires(post,postun):	shared-mime-info
 Requires(post,postun):	desktop-file-utils
 Requires:	%{name}-ui = %{version}-%{release}
-Requires:	gnupg
+Requires:	gnupg2 >= 2.0
 Requires:	hicolor-icon-theme
 Conflicts:	gnome-keyring < 3.3.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -92,7 +92,7 @@ Summary(pl.UTF-8):	API gcr i gck dla języka Vala
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	vala >= 2:0.20.0
-%if "%{_rpmversion}" >= "5"
+%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
 %endif
 
@@ -135,6 +135,9 @@ Summary(pl.UTF-8):	API gcr-ui dla języka Vala
 Group:		X11/Development/Libraries
 Requires:	%{name}-ui-devel = %{version}-%{release}
 Requires:	vala-gcr = %{version}-%{release}
+%if "%{_rpmversion}" >= "4.6"
+BuildArch:	noarch
+%endif
 
 %description -n vala-gcr-ui
 gcr-ui API for Vala language.
@@ -148,7 +151,7 @@ Summary(pl.UTF-8):	Dokumentacja API bibliotek gcr i gck
 Group:		Documentation
 Requires:	gtk-doc-common
 Obsoletes:	gnome-keyring-apidocs < 3.3.0
-%if "%{_rpmversion}" >= "5"
+%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
 %endif
 
