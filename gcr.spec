@@ -9,7 +9,7 @@ Version:	3.38.1
 Release:	1
 License:	LGPL v2+
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/gcr/3.38/%{name}-%{version}.tar.xz
+Source0:	https://download.gnome.org/sources/gcr/3.38/%{name}-%{version}.tar.xz
 # Source0-md5:	e7f9e86da73b7308aae16cac0f392721
 URL:		https://gitlab.gnome.org/GNOME/gcr
 BuildRequires:	gettext-tools >= 0.19.8
@@ -25,7 +25,7 @@ BuildRequires:	meson >= 0.49
 BuildRequires:	ninja
 BuildRequires:	p11-kit-devel >= 0.19.0
 BuildRequires:	pkgconfig
-BuildRequires:	rpmbuild(macros) >= 1.736
+BuildRequires:	rpmbuild(macros) >= 1.752
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	vala >= 2:0.20.0
 BuildRequires:	xz
@@ -92,9 +92,7 @@ Summary(pl.UTF-8):	API gcr i gck dla języka Vala
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	vala >= 2:0.20.0
-%if "%{_rpmversion}" >= "4.6"
-BuildArch:	noarch
-%endif
+%{?noarchpackage}
 
 %description -n vala-gcr
 gcr and gck API for Vala language.
@@ -135,9 +133,7 @@ Summary(pl.UTF-8):	API gcr-ui dla języka Vala
 Group:		X11/Development/Libraries
 Requires:	%{name}-ui-devel = %{version}-%{release}
 Requires:	vala-gcr = %{version}-%{release}
-%if "%{_rpmversion}" >= "4.6"
-BuildArch:	noarch
-%endif
+%{?noarchpackage}
 
 %description -n vala-gcr-ui
 gcr-ui API for Vala language.
@@ -151,9 +147,7 @@ Summary(pl.UTF-8):	Dokumentacja API bibliotek gcr i gck
 Group:		Documentation
 Requires:	gtk-doc-common
 Obsoletes:	gnome-keyring-apidocs < 3.3.0
-%if "%{_rpmversion}" >= "4.6"
-BuildArch:	noarch
-%endif
+%{?noarchpackage}
 
 %description apidocs
 API and gck documentation for gcr library.
