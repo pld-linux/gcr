@@ -92,7 +92,7 @@ Summary(pl.UTF-8):	API gcr i gck dla języka Vala
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	vala >= 2:0.20.0
-%{?noarchpackage}
+BuildArch:	noarch
 
 %description -n vala-gcr
 gcr and gck API for Vala language.
@@ -133,7 +133,7 @@ Summary(pl.UTF-8):	API gcr-ui dla języka Vala
 Group:		X11/Development/Libraries
 Requires:	%{name}-ui-devel = %{version}-%{release}
 Requires:	vala-gcr = %{version}-%{release}
-%{?noarchpackage}
+BuildArch:	noarch
 
 %description -n vala-gcr-ui
 gcr-ui API for Vala language.
@@ -147,7 +147,7 @@ Summary(pl.UTF-8):	Dokumentacja API bibliotek gcr i gck
 Group:		Documentation
 Requires:	gtk-doc-common
 Obsoletes:	gnome-keyring-apidocs < 3.3.0
-%{?noarchpackage}
+BuildArch:	noarch
 
 %description apidocs
 API and gck documentation for gcr library.
