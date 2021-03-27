@@ -5,18 +5,17 @@
 Summary:	GObject and GUI library for high level crypto parsing and display
 Summary(pl.UTF-8):	Biblioteka GObject i GUI do wysokopoziomowej analizy i wyświetlania danych kryptograficznych
 Name:		gcr
-Version:	3.38.1
+Version:	3.40.0
 Release:	1
 License:	LGPL v2+
 Group:		X11/Applications
-Source0:	https://download.gnome.org/sources/gcr/3.38/%{name}-%{version}.tar.xz
-# Source0-md5:	e7f9e86da73b7308aae16cac0f392721
+Source0:	https://download.gnome.org/sources/gcr/3.40/%{name}-%{version}.tar.xz
+# Source0-md5:	fa34048b5562f80587a71d11931a7c29
 URL:		https://gitlab.gnome.org/GNOME/gcr
 BuildRequires:	gettext-tools >= 0.19.8
 BuildRequires:	glib2-devel >= 1:2.44.0
-BuildRequires:	gnupg2 >= 2.0
 BuildRequires:	gobject-introspection-devel >= 1.34.0
-BuildRequires:	gtk+3-devel >= 3.12.0
+BuildRequires:	gtk+3-devel >= 3.22.0
 BuildRequires:	gtk-doc >= 1.9
 BuildRequires:	libgcrypt-devel >= 1.4.5
 BuildRequires:	libtasn1-devel
@@ -105,7 +104,7 @@ Summary:	gcr UI library
 Summary(pl.UTF-8):	Biblioteka interfejsu użytkownika gcr
 Group:		X11/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
-Requires:	gtk+3 >= 3.12.0
+Requires:	gtk+3 >= 3.22.0
 
 %description ui
 gcr UI library.
@@ -119,7 +118,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki gcr-ui
 Group:		X11/Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-ui = %{version}-%{release}
-Requires:	gtk+3-devel >= 3.12.0
+Requires:	gtk+3-devel >= 3.22.0
 
 %description ui-devel
 Header files for gcr-ui library.
@@ -160,6 +159,7 @@ Dokumentacja API bibliotek gcr i gck.
 
 %build
 %meson build \
+	-Dgpg_path=%{__gpg} \
 	-Dgtk-doc=%{__true_false apidocs}
 
 %ninja_build -C build
@@ -194,7 +194,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog HACKING NEWS README
+%doc CONTRIBUTING.md NEWS README.md
 %attr(755,root,root) %{_bindir}/gcr-viewer
 %attr(755,root,root) %{_libexecdir}/gcr-prompter
 %attr(755,root,root) %{_libexecdir}/gcr-ssh-askpass
