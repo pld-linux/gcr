@@ -21,9 +21,10 @@ BuildRequires:	libgcrypt-devel >= 1.4.5
 BuildRequires:	libtasn1-devel
 BuildRequires:	libxslt-progs
 BuildRequires:	meson >= 0.49
-BuildRequires:	ninja
+BuildRequires:	ninja >= 1.5
 BuildRequires:	p11-kit-devel >= 0.19.0
 BuildRequires:	pkgconfig
+BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(macros) >= 1.752
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	vala >= 2:0.20.0
