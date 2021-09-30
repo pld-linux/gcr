@@ -5,12 +5,12 @@
 Summary:	GObject and GUI library for high level crypto parsing and display
 Summary(pl.UTF-8):	Biblioteka GObject i GUI do wysokopoziomowej analizy i wyświetlania danych kryptograficznych
 Name:		gcr
-Version:	3.40.0
+Version:	3.41.0
 Release:	1
 License:	LGPL v2+
 Group:		X11/Applications
-Source0:	https://download.gnome.org/sources/gcr/3.40/%{name}-%{version}.tar.xz
-# Source0-md5:	fa34048b5562f80587a71d11931a7c29
+Source0:	https://download.gnome.org/sources/gcr/3.41/%{name}-%{version}.tar.xz
+# Source0-md5:	6b6d52de90d4ae95be7d36abf66626fa
 URL:		https://gitlab.gnome.org/GNOME/gcr
 BuildRequires:	gettext-tools >= 0.19.8
 BuildRequires:	glib2-devel >= 1:2.44.0
@@ -18,6 +18,7 @@ BuildRequires:	gobject-introspection-devel >= 1.34.0
 BuildRequires:	gtk+3-devel >= 3.22.0
 BuildRequires:	gtk-doc >= 1.9
 BuildRequires:	libgcrypt-devel >= 1.4.5
+BuildRequires:	libsecret-devel >= 0.20
 BuildRequires:	libtasn1-devel
 BuildRequires:	libxslt-progs
 BuildRequires:	meson >= 0.49
@@ -26,6 +27,7 @@ BuildRequires:	p11-kit-devel >= 0.19.0
 BuildRequires:	pkgconfig
 BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(macros) >= 1.752
+BuildRequires:	systemd-devel
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	vala >= 2:0.20.0
 BuildRequires:	xz
@@ -36,6 +38,7 @@ Requires(post,postun):	desktop-file-utils
 Requires:	%{name}-ui = %{version}-%{release}
 Requires:	gnupg2 >= 2.0
 Requires:	hicolor-icon-theme
+Requires:	libsecret >= 0.20
 Conflicts:	gnome-keyring < 3.3.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -198,7 +201,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc CONTRIBUTING.md NEWS README.md
 %attr(755,root,root) %{_bindir}/gcr-viewer
 %attr(755,root,root) %{_libexecdir}/gcr-prompter
+%attr(755,root,root) %{_libexecdir}/gcr-ssh-agent
 %attr(755,root,root) %{_libexecdir}/gcr-ssh-askpass
+%{systemduserunitdir}/gcr-ssh-agent.service
+%{systemduserunitdir}/gcr-ssh-agent.socket
 %{_desktopdir}/gcr-prompter.desktop
 %{_desktopdir}/gcr-viewer.desktop
 %{_datadir}/GConf/gsettings/org.gnome.crypto.pgp.convert
