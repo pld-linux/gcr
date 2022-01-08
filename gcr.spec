@@ -23,6 +23,7 @@ BuildRequires:	libtasn1-devel
 BuildRequires:	libxslt-progs
 BuildRequires:	meson >= 0.49
 BuildRequires:	ninja >= 1.5
+BuildRequires:	openssh-clients
 BuildRequires:	p11-kit-devel >= 0.19.0
 BuildRequires:	pkgconfig
 BuildRequires:	rpm-build >= 4.6
