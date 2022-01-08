@@ -6,7 +6,7 @@ Summary:	GObject and GUI library for high level crypto parsing and display
 Summary(pl.UTF-8):	Biblioteka GObject i GUI do wysokopoziomowej analizy i wyświetlania danych kryptograficznych
 Name:		gcr
 Version:	3.41.0
-Release:	1
+Release:	2
 License:	LGPL v2+
 Group:		X11/Applications
 Source0:	https://download.gnome.org/sources/gcr/3.41/%{name}-%{version}.tar.xz
@@ -26,7 +26,7 @@ BuildRequires:	ninja >= 1.5
 BuildRequires:	p11-kit-devel >= 0.19.0
 BuildRequires:	pkgconfig
 BuildRequires:	rpm-build >= 4.6
-BuildRequires:	rpmbuild(macros) >= 1.752
+BuildRequires:	rpmbuild(macros) >= 2.011
 BuildRequires:	systemd-devel
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	vala >= 2:0.20.0
@@ -35,10 +35,12 @@ Requires(post,postun):	glib2 >= 1:2.44.0
 Requires(post,postun):	gtk-update-icon-cache
 Requires(post,postun):	shared-mime-info
 Requires(post,postun):	desktop-file-utils
+Requires(post,preun,postun):	systemd-units >= 250.1
 Requires:	%{name}-ui = %{version}-%{release}
 Requires:	gnupg2 >= 2.0
 Requires:	hicolor-icon-theme
 Requires:	libsecret >= 0.20
+Requires:	systemd-units >= 250.1
 Conflicts:	gnome-keyring < 3.3.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -183,12 +185,17 @@ rm -rf $RPM_BUILD_ROOT
 %update_icon_cache hicolor
 %update_mime_database
 %update_desktop_database_post
+%systemd_user_post gcr-ssh-agent.service
+
+%preun
+%systemd_user_preun gcr-ssh-agent.service
 
 %postun
 %glib_compile_schemas
 %update_icon_cache hicolor
 %update_mime_database
 %update_desktop_database_postun
+%systemd_user_postun_with_restart gcr-ssh-agent.service
 
 %post	libs -p /sbin/ldconfig
 %postun	libs -p /sbin/ldconfig
