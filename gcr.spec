@@ -36,12 +36,12 @@ Requires(post,postun):	glib2 >= 1:2.44.0
 Requires(post,postun):	gtk-update-icon-cache
 Requires(post,postun):	shared-mime-info
 Requires(post,postun):	desktop-file-utils
-Requires(post,preun,postun):	systemd-units >= 250.1
+Requires(post,preun,postun):	systemd-units >= 1:250.1
 Requires:	%{name}-ui = %{version}-%{release}
 Requires:	gnupg2 >= 2.0
 Requires:	hicolor-icon-theme
 Requires:	libsecret >= 0.20
-Requires:	systemd-units >= 250.1
+Requires:	systemd-units >= 1:250.1
 Conflicts:	gnome-keyring < 3.3.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
