@@ -11,6 +11,7 @@ License:	LGPL v2+
 Group:		X11/Applications
 Source0:	https://download.gnome.org/sources/gcr/3.41/%{name}-%{version}.tar.xz
 # Source0-md5:	6b6d52de90d4ae95be7d36abf66626fa
+Patch0:		meson0.61.patch
 URL:		https://gitlab.gnome.org/GNOME/gcr
 BuildRequires:	gettext-tools >= 0.19.8
 BuildRequires:	glib2-devel >= 1:2.44.0
@@ -163,6 +164,7 @@ Dokumentacja API bibliotek gcr i gck.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %meson build \
