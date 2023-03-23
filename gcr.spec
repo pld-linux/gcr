@@ -1,28 +1,27 @@
 #
 # Conditional build:
-%bcond_without	apidocs		# do not build and package API docs
+%bcond_without	apidocs		# API documentation
 
 Summary:	GObject and GUI library for high level crypto parsing and display
 Summary(pl.UTF-8):	Biblioteka GObject i GUI do wysokopoziomowej analizy i wyświetlania danych kryptograficznych
 Name:		gcr
-Version:	3.41.0
-Release:	4
+Version:	3.41.1
+Release:	1
 License:	LGPL v2+
 Group:		X11/Applications
 Source0:	https://download.gnome.org/sources/gcr/3.41/%{name}-%{version}.tar.xz
-# Source0-md5:	6b6d52de90d4ae95be7d36abf66626fa
-Patch0:		meson0.61.patch
+# Source0-md5:	c1e98af977236255006e11e8f8cfbaca
 URL:		https://gitlab.gnome.org/GNOME/gcr
 BuildRequires:	gettext-tools >= 0.19.8
 BuildRequires:	glib2-devel >= 1:2.44.0
 BuildRequires:	gobject-introspection-devel >= 1.34.0
 BuildRequires:	gtk+3-devel >= 3.22.0
-BuildRequires:	gtk-doc >= 1.9
+%{?with_apidocs:BuildRequires:	gi-docgen}
 BuildRequires:	libgcrypt-devel >= 1.4.5
 BuildRequires:	libsecret-devel >= 0.20
 BuildRequires:	libtasn1-devel
 BuildRequires:	libxslt-progs
-BuildRequires:	meson >= 0.49
+BuildRequires:	meson >= 0.52
 BuildRequires:	ninja >= 1.5
 BuildRequires:	openssh-clients
 BuildRequires:	p11-kit-devel >= 0.19.0
@@ -164,7 +163,6 @@ Dokumentacja API bibliotek gcr i gck.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %meson build \
@@ -177,6 +175,12 @@ Dokumentacja API bibliotek gcr i gck.
 rm -rf $RPM_BUILD_ROOT
 
 %ninja_install -C build
+
+%if %{with apidocs}
+# FIXME: where to package gi-docgen generated docs?
+install -d $RPM_BUILD_ROOT%{_gtkdocdir}
+%{__mv} $RPM_BUILD_ROOT%{_docdir}/gc* $RPM_BUILD_ROOT%{_gtkdocdir}
+%endif
 
 %find_lang %{name}
 
@@ -278,6 +282,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with apidocs}
 %files apidocs
 %defattr(644,root,root,755)
-%{_gtkdocdir}/gck
-%{_gtkdocdir}/gcr
+%{_gtkdocdir}/gck-1
+%{_gtkdocdir}/gcr-3
+%{_gtkdocdir}/gcr-ui-3
 %endif
