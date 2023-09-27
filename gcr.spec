@@ -27,7 +27,7 @@ BuildRequires:	openssh-clients
 BuildRequires:	p11-kit-devel >= 0.19.0
 BuildRequires:	pkgconfig
 BuildRequires:	rpm-build >= 4.6
-BuildRequires:	rpmbuild(macros) >= 2.011
+BuildRequires:	rpmbuild(macros) >= 2.029
 BuildRequires:	systemd-devel
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	vala >= 2:0.20.0
@@ -177,9 +177,8 @@ rm -rf $RPM_BUILD_ROOT
 %ninja_install -C build
 
 %if %{with apidocs}
-# FIXME: where to package gi-docgen generated docs?
-install -d $RPM_BUILD_ROOT%{_gtkdocdir}
-%{__mv} $RPM_BUILD_ROOT%{_docdir}/gc* $RPM_BUILD_ROOT%{_gtkdocdir}
+install -d $RPM_BUILD_ROOT%{_gidocdir}
+%{__mv} $RPM_BUILD_ROOT%{_docdir}/gc* $RPM_BUILD_ROOT%{_gidocdir}
 %endif
 
 %find_lang %{name}
@@ -282,7 +281,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with apidocs}
 %files apidocs
 %defattr(644,root,root,755)
-%{_gtkdocdir}/gck-1
-%{_gtkdocdir}/gcr-3
-%{_gtkdocdir}/gcr-ui-3
+%{_gidocdir}/gck-1
+%{_gidocdir}/gcr-3
+%{_gidocdir}/gcr-ui-3
 %endif
