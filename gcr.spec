@@ -151,7 +151,6 @@ API gcr-ui dla języka Vala.
 Summary:	gcr and gck API documentation
 Summary(pl.UTF-8):	Dokumentacja API bibliotek gcr i gck
 Group:		Documentation
-Requires:	gtk-doc-common
 Obsoletes:	gnome-keyring-apidocs < 3.3.0
 BuildArch:	noarch
 
