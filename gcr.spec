@@ -164,16 +164,16 @@ Dokumentacja API bibliotek gcr i gck.
 %setup -q
 
 %build
-%meson build \
+%meson \
 	-Dgpg_path=%{__gpg} \
 	-Dgtk_doc=%{__true_false apidocs}
 
-%ninja_build -C build
+%meson_build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%ninja_install -C build
+%meson_install
 
 %if %{with apidocs}
 install -d $RPM_BUILD_ROOT%{_gidocdir}
