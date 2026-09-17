@@ -6,7 +6,7 @@ Summary:	GObject and GUI library for high level crypto parsing and display
 Summary(pl.UTF-8):	Biblioteka GObject i GUI do wysokopoziomowej analizy i wyświetlania danych kryptograficznych
 Name:		gcr
 Version:	3.41.2
-Release:	1
+Release:	2
 License:	LGPL v2+
 Group:		X11/Applications
 Source0:	https://download.gnome.org/sources/gcr/3.41/%{name}-%{version}.tar.xz
@@ -42,6 +42,7 @@ Requires:	gnupg2 >= 2.0
 Requires:	hicolor-icon-theme
 Requires:	libsecret >= 0.20
 Requires:	systemd-units >= 1:250.1
+Suggests:	%{name}-ssh-agent = %{version}-%{release}
 Conflicts:	gnome-keyring < 3.3.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -147,6 +148,20 @@ gcr-ui API for Vala language.
 %description -n vala-gcr-ui -l pl.UTF-8
 API gcr-ui dla języka Vala.
 
+%package ssh-agent
+Summary:	SSH agent using gcr
+Summary(pl.UTF-8):	Agent SSH wykorzystujący gcr
+Group:		Applications
+Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}-libs = %{version}-%{release}
+Conflicts:	gcr4-ssh-agent
+
+%description ssh-agent
+SSH agent using gcr.
+
+%description ssh-agent -l pl.UTF-8
+Agent SSH wykorzystujący gcr.
+
 %package apidocs
 Summary:	gcr and gck API documentation
 Summary(pl.UTF-8):	Dokumentacja API bibliotek gcr i gck
@@ -190,17 +205,12 @@ rm -rf $RPM_BUILD_ROOT
 %update_icon_cache hicolor
 %update_mime_database
 %update_desktop_database_post
-%systemd_user_post gcr-ssh-agent.service
-
-%preun
-%systemd_user_preun gcr-ssh-agent.service
 
 %postun
 %glib_compile_schemas
 %update_icon_cache hicolor
 %update_mime_database
 %update_desktop_database_postun
-%systemd_user_postun_with_restart gcr-ssh-agent.service
 
 %post	libs -p /sbin/ldconfig
 %postun	libs -p /sbin/ldconfig
@@ -208,15 +218,21 @@ rm -rf $RPM_BUILD_ROOT
 %post	ui -p /sbin/ldconfig
 %postun	ui -p /sbin/ldconfig
 
+%post ssh-agent
+%systemd_user_post gcr-ssh-agent.service
+
+%preun ssh-agent
+%systemd_user_preun gcr-ssh-agent.service
+
+%postun ssh-agent
+%systemd_user_postun_with_restart gcr-ssh-agent.service
+
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc CONTRIBUTING.md NEWS README.md
 %attr(755,root,root) %{_bindir}/gcr-viewer
 %attr(755,root,root) %{_libexecdir}/gcr-prompter
-%attr(755,root,root) %{_libexecdir}/gcr-ssh-agent
 %attr(755,root,root) %{_libexecdir}/gcr-ssh-askpass
-%{systemduserunitdir}/gcr-ssh-agent.service
-%{systemduserunitdir}/gcr-ssh-agent.socket
 %{_desktopdir}/gcr-prompter.desktop
 %{_desktopdir}/gcr-viewer.desktop
 %{_datadir}/GConf/gsettings/org.gnome.crypto.pgp.convert
@@ -276,6 +292,12 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_datadir}/vala/vapi/gcr-ui-3.deps
 %{_datadir}/vala/vapi/gcr-ui-3.vapi
+
+%files ssh-agent
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libexecdir}/gcr-ssh-agent
+%{systemduserunitdir}/gcr-ssh-agent.service
+%{systemduserunitdir}/gcr-ssh-agent.socket
 
 %if %{with apidocs}
 %files apidocs
